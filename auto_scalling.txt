@@ -1,0 +1,34 @@
+							Auto Scaling
+I had faced Auto scaling issue.
+step1: check our scaling policies to see whether an event trigger more than one policy
+(some times what happens right in our auto scaling we have a custome trigger policy 
+Goto autoscaling > in the autoscaling one option is available Automatic scaling in this section Dynamic scaling 
+policies(in that excute the policy when: as required to maintain aveg cpu utilization at 70)
+
+step2: verify if a scale-out policy and scale-in policy are triggered at the same time.
+in auto scaling two types of scaling policy
+1. scale-out policy- increase the capacity of ec2 instance
+2. scale-in policy- decrease the capacity of ec2 instance 
+when it is reached 80% utilization it is scale out (it means create new auto scaling group)
+scale in : enable  (it means when our utilization back to normal it will scale in the capacity what ever new
+provision instance right it will termimate that instance it will back to actual capacity of my atoscaling)
+Auto scaling > activity (it shows the history 
+
+step3: check auto scaling group already reached its minimum or maximum number of instance (check Desired capacity 
+and maximum capacity (maximum capacity value is doble or triple the minimum capacity)
+
+step4: check instances are in a cooldown period and instance warmup
+in advanced configuration (Default cooldown: 300 it means to create next instance minimum wait for 300sec
+default instance warmup:60 when the instances newly created come up with 60 sec)
+
+step5: check if there is a lifecycle hook configured for amazon ec2 auto scaling group.
+in instance management > lifecycle hook (it control the state of instances during the scaling process)
+lifecycle hooks are two types:
+1. lunch lifecycle hook
+2. terminate lifecycle hook:
+
+step6: check is there is any schedule action configured which conflicting the auto scaling group.
+automatic scaling> under this schedular action is available 
+step7: check suspended processes for your auto scaling group.
+any change activity with our autoscaling instances right aws provide a option suspend processes in advanced configuration  
+suspended processes: Terminate,lunch,health check  

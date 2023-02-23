@@ -1,0 +1,17 @@
+
+
+
+
+
+
+1.Worked on Jenkins job creation for build and deploy followed by downstream projects.
+2.Worked on Sprint based task and completed within a stipulated time
+3.Worked on Nexus artifact cleanup to save space based on the releases.
+4.Having good exposure to branching strategies in Git.
+5.Good experience in AWS Services like EC2, VPC, IAM, S3 ,SNS and Auto Scaling
+6.Used JIRA tool to track all the defects and changes related to Build and Release team.
+7.Strong experience in working in Linux and windows environment
+
+presentaion
+application
+data base layer

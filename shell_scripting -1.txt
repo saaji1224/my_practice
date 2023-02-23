@@ -1,0 +1,39 @@
+cat /etc/shells
+which bash
+
+1. first create a file
+#touch hello.sh
+#vi hello.sh
+#! /bin/bash
+echo "Hello World"
+#chomd +x hello.sh
+#./hello.sh
+
+variables: variables are containers which stores some data
+
+unix and linux system there are two types of varibles
+1. System variable
+2. User defined variable	
+
+Syetem variables are create and maintained by your linux/unix OS.
+This varaibles which are defined in capital cases 
+
+User defined variables and these type of variables are created and maintained by the user 
+
+
+
+
+
+
+
+File test operators:
+----------------
+Example: if you want to check whether file exists or not
+
+#vi file.sh
+#! /bin/bash
+echo -e "enter the name of the file: \c"
+read file_name	
+if [       \c----> used to keep the cursor on the same line after the 
+						end of the echo
+					      -e--->enable the interpretation of this backslash

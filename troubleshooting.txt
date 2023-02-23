@@ -1,0 +1,48 @@
+								S3 troubleshooting
+1. S3 bucket showing Error access denied.( insufficient permissions to list objects)
+2. S3 access column shows the "error" for all buckets
+3. Troubleshoot "error" in the access field for buckets
+
+point-1:  Check what is the status of other S3 buckets,whether all buckets are showing error or not.
+
+point-2: Check IAM user/Role has the following permissions,
+S3:GetAccountPubliAccessBlock
+S3:GetBucketPubliAccessBlock
+S3:GetBucketPolicyStatus
+S3:GetBucketAcl	
+S3:ListAccessPoints
+
+point-3: Possible login from the root user and check what is the status of the error bucket.
+
+point-4: check the bucket has any custom policy (root account)( goto s3>select properties only s3 policy can be edited by root user)
+
+								EC2 Troubleshooting
+network error: connection time out
+The EC2 instance not able to do the RDP/SSH
+1. We need to check whether the EC2 instance Segurity Group 
+SG-3389/22
+2. check Instance state current status - Runing or not
+3. after that need to check EC2 instance status checks --2/2-(it means all ok)
+       			1. 1/2----Network,Antivirus,EBS,Network interface   -----> stop and start the Instance(backend EC2 instance will move one physiacl host to another physical host own algaritham)
+			2. 0/2----Need check with AWS | Backend Hardware issue---> stop and start
+4. Need to check instance screenshot from EC2 console
+	select EC2 instance > Actions > Monitor and troubleshoot > Get Instance screenshot (if supose blue screen error )
+	1. If it shows any BSOD---> Restore from latest  backup
+5. System logs from EC2 console 
+		select EC2 instance > Actions > Monitor and troubleshoot > Get System log
+6. Cloud Trail---> Any recent changes to that instance
+		copy the instance id > and search clod trail > goto Event history (Event history shows you the last 90 days of management events.)
+7. Any Rule in place on ACL 
+		select EC2 instance > networking > select VPC ID > Network ACL's > inbound rules
+
+
+
+
+
+8.  need to check your EC2 instance allocated on Public or Private subnet
+		select EC2 instance > goto Networking > select subnet id > and select subnet > goto Route Table > The route table has internet connectivity
+9. Need to check VPC has a Internet Gateway or not.
+		goto Internet Gateway (default) > check VPC is attached or not 
+10. Finally we need to check VPC has Route Table entries or not 
+		goto Route table > Routes 
+

@@ -1,0 +1,134 @@
+							IAM(Identity Access Management)
+IAM is a lift time free service
+I--Identity-->Authentication--> it only login 
+A--Access--->Authorization ----> after login what we do (like permission)
+M--Management
+
+In Identity having two futurs:
+A. IAM User -- can access the aws consloe by using console,and cli and programmatic access .... 
+when creation of IAM users we have two options 
+1. console access permission
+2. Programmatic/cli --- it gives access key and secret key and it is static 
+3. SDK 
+
+B. IAM Role ---> specific user/group on behalf off service
+using IAM role we can generate Temparory Access key and secret keys
+IAM role consists onyly Acess key and sercet key 
+if we want to permission to IAM role to attach the policies.
+
+If you want permission to user we want to attach policy
+IAM policies:
+policies are two types
+A. AWS managed --Ii is pre-defined  (like Adminstration full access..)
+if any services aws provide two type of Access
+1. Full permission
+2. Read only 
+
+IAM Provide two maximum Access keys
+
+B. Customer managed -- it is used to Operation Based finegrent control access 
+In AWS policies are JSON formate 
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "FirstStatement",
+      "Effect": "Allow",                  ------> it contains only Allow or Deny
+      "Action": ["iam:ChangePassword"],
+      "Resource": "*"
+    }
+
+Group:
+
+
+#aws configure
+#aws sts get-caller-identity ----> it show the present iam user 
+PS C:\Users\ssajith> aws sts get-caller-identity
+{
+    "UserId": "AIDAXEWDLPH5UFKDGMONC",
+    "Account": "491109710331",
+    "Arn": "arn:aws:iam::491109710331:user/sajith"
+}
+#aws s3 ls ---> it shows the list of s3 buckets
+#aws ec2 describe-instances
+PS C:\Users\ssajith> aws ec2 describe-instances
+{
+    "Reservations": [
+        {
+            "Groups": [],
+            "Instances": [
+                {
+                    "AmiLaunchIndex": 0,
+                    "ImageId": "ami-0f69bc5520884278e",
+                    "InstanceId": "i-08ae792ad678bdf8a",
+                    "InstanceType": "t2.micro",
+                    "KeyName": "sajith",
+                    "LaunchTime": "2023-01-10T06:43:29+00:00",
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "Placement": {
+                        "AvailabilityZone": "ap-south-1a",
+                        "GroupName": "",
+                        "Tenancy": "default"
+                    },
+                    "PrivateDnsName": "ip-172-31-41-185.ap-south-1.compute.internal",
+                    "PrivateIpAddress": "172.31.41.185",
+                    "ProductCodes": [],
+                    "PublicDnsName": "",
+                    "State": {
+                        "Code": 80,
+                        "Name": "stopped"
+                    },
+                    "StateTransitionReason": "User initiated (2023-01-16 18:27:20 GMT)",
+                    "SubnetId": "subnet-0376f73724e6a1db1",
+                    "VpcId": "vpc-08f226d0988fad95f",
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/sda1",
+                            "Ebs": {
+                                "AttachTime": "2023-01-10T06:43:30+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-0dd82dd7b2942f84a"
+                            }
+                        }
+                    ]
+
+Inline policy--> it affects only sepecified users not effected in the policies
+customied policy-----> it affects in the policies when ever we create new policy to new user we can use the customied policies list but we cant use
+                        in-line policy but we have to create new in-line policy to new user
+
+
+Inline policy--> it applicable for only particular user
+
+IAM Roles:
+------------
+by default aws provide two roles 
+1. AWS serviceRole for support
+2. AWS Service for trusted advisor
+This two is service linked roles
+
+Roles are two types
+1. Serviced based roles(like EC2,S3,Lambda)
+2. Account based roles (another AWS account)(access or not)
+
+IAM users with Customer policies
+----------------------------------
+goto 
+users > select created user> 
+
+list of actions:
+1. Create IAM User
+2. Try login and open aws s3 service page
+3. Attach AWS managed policy to the above created user.
+4. Try accessing the s3 service page admin
+5. Try accessing the IAM service page 
+6. Add IAM permissions 
+
+
+
+lambda----ec2 instance 
+iam---trouble shooting 

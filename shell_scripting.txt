@@ -1,0 +1,468 @@
+shell:collection of multiple commands 
+shell scripting is basically which is by default thier in the unilx/linux 
+
+kernel: A kernel is at the nucleus of a computer. It makes communication between the hardware and software possible.
+        while the kernel is the innermost part os an operating system,a shell is the outermost one.
+Shell: A shell is a linux operating system takes input from you in the form of commands, processes it, and then gives
+       an output. It is the interface through which a user works on the programs, commands, and scripts.
+       A shell is accessed by the terminal whuich runs it.
+Operating system is interface between hardware and user.
+OS contains two componets.
+1.kernel
+2.shell
+
+1. shell is command interpreter.
+2. shell prompt is $
+3. Group of commands can be execute with single key stroke.
+4. A file that contains valid commands of unix/linux OS refers to a script file.
+5. An script file is creates at shell prompt, it is called as shell script.
+6. After creating a script it has to be executed with sh command.
+Ex:
+$sh filename.sh
+7. sh can execute a file even a file doesn't have execution permission for file.
+8. # is used to pass comments in shell scripts.
+9. sleep- used to delay the processing based on the assigned seconds. 
+
+shell-----> command interpreter
+shell script-----> a file contains valid uinx/linux commands
+echo --> display messages.
+read----> read input from user
+
+Arithmetic operators:
+--------------------------
+
+write a shell script to find sum of 2 given numbers:
+
+echo enter first number:
+read num1
+echo enter second number:
+read num2
+echo `expr $num1 + $num2`
+
+#sh sum.sh
+enter first number:
+12
+enter second number:
+21
+33
+
+
+Relational and logical operators
+
+Relation operator    Normal  
+-gt     	      >
+-lt		      <
+-ge		      >=
+-le		      >=
+-eq		      =
+-ne 		      =!
+
+logical operator     Normal
+-a	 	      And
+-o 		      Or
+-n 		      Not
+
+conditional statements
+-----------------
+if
+if..else..if
+nested if
+
+if
+---
+if [condition]
+then
+	STATMENT1
+	STATMENT2
+else:
+	STATMENT F
+fi
+
+write a shell script to find biggest of two numbers.
+#vi addition.sh
+echo enter fisrt number:
+read x
+echo enter second number:
+read y
+
+if [ $x -gt $y ]
+then
+echo x is big
+else
+echo y is big
+fi
+
+
+#sh addition.sh
+enter fisrt number:
+34
+enter second number:
+22
+x is big
+
+if..else..if:
+------------
+if [ condition ]
+then
+	statement-1
+	stetment-2
+else
+if [ condition-2 ]
+then
+	statement-3
+	statement-4
+fi
+fi
+
+write a shell script to find biggest of three numbers:
+a b c
+a>b and a>c ---> a is large
+b>a and b>c ----> b is largest
+c is largest
+
+#vi big.sh
+read a b c
+if [ $a -gt $b -a $a -gt $c ]
+then
+echo $a is large
+else
+if [ $b -gt  $a -a $b -gt $c ]
+then
+echo $b is large
+else 
+echo $c is large
+fi
+fi
+[root@ip-172-31-0-190 ~]# sh big.sh
+4 6 7
+7 is large
+[root@ip-172-31-0-190 ~]# sh big.sh
+8 66 65
+66 is large
+[root@ip-172-31-0-190 ~]# sh big.sh
+30 22 9
+30 is large
+
+nested if :
+------------- 
+if [ condition ]
+then
+	statements
+        if [ condition ]
+        then
+		statement
+	else
+		statement
+	fi
+else
+	statements
+fi
+
+check the given number is even or odd (check number is positive r not)
+if positive
+	check even r odd
+else
+	not positive
+
+#vi positive.sh
+read n
+if [ $n -gt 0 ]
+then
+echo number  is positive
+r=`expr $n % 2`
+if [ $r -eq 0 ]
+then
+echo number is even
+else
+echo number is odd
+fi
+else
+echo number is nagative
+fi
+
+#sh positive.sh
+[root@ip-172-31-0-190 ~]# sh new.sh
+6
+number is positive
+number is even
+[root@ip-172-31-0-190 ~]# sh new.sh
+-6
+number is nagative
+[root@ip-172-31-0-190 ~]# sh new.sh
+7
+number is positive
+number is odd
+--------------
+test command with if condition
+1. test is used as part of the conditional execution of shell command. It check existence of a file, directory,
+   file permissions and existence of contents in file.
+2. options will be used with test command
+
+Options 	usage
+-f		checks if file is an ordinary file;if yes, then the condition becomes true
+-d 		checks if file is a directory;if yes,then the condition becomes true
+-r		checks if file is readable; if yes,then the condition becomes true
+-w 		checks if file is writable; if yes,then the condition become true
+-x 		checks if file is executable;if yes,then the condiition becomes true
+-s 		checks if the file has size greater than 0;if yes, then the condition becomes true.
+if test -option variable 
+then
+true statement 
+else
+false statement 
+fi
+
+write a shell script to check file exist or not 
+#vi ss.sh
+echo enter a file name:
+read file
+
+if test -f $file
+then
+echo file is exist
+else
+echo file is not exist
+fi
+#sh ss.sh
+[root@ip-172-31-0-190 ~]# sh ss.sh
+enter a file name:
+sajith.sh
+file is exist
+[root@ip-172-31-0-190 ~]# vi ss.sh
+[root@ip-172-31-0-190 ~]# sh ss.sh
+enter a file name:
+adc
+file is not exist
+
+write a shell script to check given file is normal file or dirctory
+[root@ip-172-31-0-190 ~]# sh ss1.sh
+enter a file/directory name:
+new.sh
+given file is normal file
+[root@ip-172-31-0-190 ~]# mkdir sajith
+[root@ip-172-31-0-190 ~]# sh ss1.sh
+enter a file/directory name:
+saith
+neither a file nor a directory
+
+#sh ss1.sh
+echo enter a file/directory name:
+read fd
+
+if test -f $fd
+then
+echo given file is normal file
+else
+if test -d $fd
+then
+echo given file is a diectory
+else
+echo neither a file nor a directory
+fi
+fi
+
+write a shell sricpt to check file contains data 
+echo enter a file name to check:
+read file
+
+if test -s $file
+then
+echo filoe has content
+else
+echo file has no content
+fi
+
+[root@ip-172-31-0-190 ~]# sh ss1.sh
+enter a file name to check:
+sajith.sh
+filoe has content
+[root@ip-172-31-0-190 ~]# touch a.txt
+[root@ip-172-31-0-190 ~]# sh ss1.sh
+enter a file name to check:
+a
+file has no content
+
+wirte shell script to check file exist and copy to another file.
+#vi copy.sh
+echo provide your file name:
+read file
+if test -f $file
+then
+echo file exists
+echo provide name of the new file:
+read nfile
+#mv $file $nfile
+cp $file $nfile
+echo content in the new file is..
+cat $nfile
+else
+echo file not exist
+fi
+
+[root@ip-172-31-0-190 ~]# sh copy.sh
+provide your file name:
+sajith.sh
+file exists
+provide name of the new file:
+s.txt
+content in the new file is..
+#!/bin/bash
+var1=sajith
+var2=saaji
+echo "$var1 $var2"
+[root@ip-172-31-0-190 ~]# ls
+'\'            a.txt     d.txt         saaji.txt   ss.sh
+ ab.txt        big.sh    new.sh        sajith      s.txt
+ addition.sh   copy.sh   practice.sh   ss1.sh      sum.sh
+[root@ip-172-31-0-190 ~]# vi copy.sh
+[root@ip-172-31-0-190 ~]# sh copy.sh
+provide your file name:
+s.txt
+file exists
+provide name of the new file:
+s1.sh
+content in the new file is..
+#!/bin/bash
+var1=sajith
+var2=saaji
+echo "$var1 $var2"
+[root@ip-172-31-0-190 ~]# ls
+'\'            a.txt     d.txt         s1.sh       ss1.sh   sum.sh
+ ab.txt        big.sh    new.sh        saaji.txt   ss.sh
+ addition.sh   copy.sh   practice.sh   sajith      s.txt
+
+
+Switch.case statement:
+------------------------
+syntax:
+
+case variable in
+choice 1)
+	statement1
+	statement2
+;;
+choice 2)
+	statement3
+	statement4
+;;
+*)
+	statement5
+	statement6
+esac
+
+Example:
+#vi cal.sh
+echo enter first and second numbers:
+read a b
+
+echo choose option:
+echo 1. addition
+echo 2. multiplication
+read ch
+case $ch in
+1)
+c=`expr $a + $b`
+echo addition is :$c
+;;
+2)
+c=`expr $a \* $b`
+echo multiplication is :$c
+;;
+*)
+echo invalid choice
+esac
+
+[root@ip-172-31-0-190 ~]# vi cal.sh
+[root@ip-172-31-0-190 ~]# sh cal.sh
+enter first and second numbers:
+4 6
+choose option:
+1. addition
+2. multiplication
+1
+addition is :10
+[root@ip-172-31-0-190 ~]# sh cal.sh
+enter first and second numbers:
+5 6
+choose option:
+1. addition
+2. multiplication
+5
+invalid choice
+[root@ip-172-31-0-190 ~]#
+-------------------
+LOOP: 
+Loop is nothing but a sequenece of steps will be repated multiple times till the condition becomes false 
+
+while 
+for loop
+
+while [condition]
+do
+statement1
+statement2
+done
+
+Example : print 1 to 10 numbers
+
+#vi while.sh
+i=1
+while [ $i -le 10 ]
+do
+echo $i
+i=`expr $i + 1`
+done
+
+[root@ip-172-31-0-190 ~]# vi while.sh
+[root@ip-172-31-0-190 ~]# sh while.sh
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+
+for loop:
+--------
+for varaible in list of values
+do
+statement1
+statement2
+done
+Example: print only Even number between 1 to 10 numbers
+#vi even.sh
+for i in 1 2 3 4 5
+do
+echo $i
+i=`expr $i + 1`
+done
+
+break and continue
+-----
+vi break.sh
+a=0
+while [ $a -lt 10 ]
+do
+echo $a
+if [ $a -eq 5 ]
+then
+break
+fi
+a=`expr $a + 1`
+done
+
+vi continue.sh
+for num 1 2 3 4 5 6 7 8 9 10
+do 
+r=`expr $num % 2`
+if [ $r -eq 0 ]
+then
+echo number is even number
+continue
+fi
+echo number is odd number
+done

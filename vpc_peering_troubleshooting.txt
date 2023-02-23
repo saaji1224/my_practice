@@ -1,0 +1,49 @@
+								VPC troubleshooting
+vpc peering is conncet two vpcs (source and destination)
+1. AWS VPC peering issue.
+2. AWS VPC peering not working.
+
+steps:
+1. Check the security group in source and Destination instance whether required ports are opend (or) not.
+2. Check the VPC peering status is active (or) not. (some times waiting for acceptance and some time failure that status could be showing )
+AWS console  > goto vpc console > goto peering conncetions > to check the status.
+3. check both the instances are connecting individually.
+4. check the total no of subnets in source VPC and check it properly associated with the route table.
+goto vpc > select (source)one vpc > goto subnets > and goto routetabel (check route tables are available or not) and check
+subnet associations 
+5. check the total no of subnets in destination VPC and check it properly associated with the route table.
+goto vpc > select (destination) vpc > goto subnets > and goto routetabel (check route tables are available or not) and check
+subnet associations 
+In this destination vpc we have only one route table 
+6. check the sourec VPC route table whether routing for peering is configured with proper CIDR or not.
+(in source vpc we have route table in that route table we need to had the peering routing entry that should be done through destination
+vpc cidr)
+goto VPC > select source VPC > goto route tables and check the > routes (peering is available or not)
+7. check the destination VPC route table whether routing for peering is configured with proper CIDR or not.
+goto VPC > select destination VPC > goto route tables and check the > routes (peering is available or not)
+-----------------------------------------------------------------------
+How do you handle build failures in Jenkins?
+
+Handling build failures in Jenkins involves the following steps:
+
+Monitor build status: Regularly monitor the build status in the Jenkins web interface to quickly identify build failures.
+
+Review build logs: Review the build logs to identify the cause of the build failure. 
+		   Build logs provide detailed information about the build process, including any error messages or exceptions.
+
+Troubleshoot the issue: Troubleshoot the issue causing the build failure by following established troubleshooting procedures or 
+	                by seeking help from the development team or community forums.
+
+Update the build process: Update the build process to prevent similar build failures in the future. 
+			  This may involve updating build scripts, configuring build dependencies, or modifying build steps.
+
+Re-run the build: Re-run the build once the issue has been resolved. 
+	          Verify that the build is successful and that the build artifacts are generated correctly.
+
+Document the issue: Document the issue causing the build failure and the steps taken to resolve it. 
+		    This information can be useful for future reference and for continuous improvement of the build process.
+
+By following these steps, you can effectively handle build failures in Jenkins and keep your build environment running smoothly.
+-----------------------------------------------------------
+
+								

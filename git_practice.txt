@@ -1,0 +1,101 @@
+							GIT
+Git is distributed version control system and which will supported distrubted environment.It open source.
+
+Mainly git is having 4 components:
+1. Working Directory 
+2. Stagging/Index
+3. Git local repository
+4. Git-Hub remote repo
+
+Working directory: It is location where actual projcet files present.
+1. And what ever files which are available inside the working directory we can calle them as "Untracked files"
+
+Stagging Area: It is a virtual environment where all the files will be moved to stagging from theier we can move to
+"git local repo"
+
+1. When ever you have files in the working directory we cannot directly commit them into local repo.
+2. What ever filoes we have in the working directory we have to "add" those files into stagging area and then we can
+calle them as "Trcaked files"
+3. Once your files theire in the local repo we can calle them as a "commited files". From their we can push them
+into "Git-Hub"
+
+Git-Hub acting as a Remote Repo
+
+Push: It will do is push command will send all the files from the local repo to remote repo
+Ex: Supose else commited those files are not available in your local then we "pull" the code.
+
+Pull: What ever files are updated in remote repo those updated files will come into "local repo" and those files we
+can directly access from the working directory and we can do modifications.
+
+Where as push and pull actions will happen in Remote repo.
+
+Example: You have already some remote repo theire some projects are available i want to get the whole project into
+local repo. so based up on remote repo i want to create my local repo. For that i clone the remote repo.
+
+git init -----> Initialized empty Git repository
+git status -----> It will shows the untracted files
+
+
+$ git init
+Initialized empty Git repository in D:/new_git/.git/
+$touch file1.txt
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file1.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+$git add file1.txt
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   file1.txt
+
+
+Configuration commands:
+1. We have to tell git like which user is commiting thies changes user, email
+this has to be done only one time before commiting.
+
+$git config --global user.name "adbx"
+$git config --global user.email "abcder@gmail.com"
+$git commit -m "first commit"
+$git status 
+$git log ------> It shows the how many commits you have done
+
+$git diff   -------> basically used for comparing the files in VCS.
+
+Ex1: To see the difference in the file content between working directory and stagging area.
+$vi file1.txt
+$git diff file1.txt
+$ git diff file1.txt
+warning: in the working copy of 'file1.txt', LF will be replaced by CRLF the next time Git touches it
+diff --git a/file1.txt b/file1.txt
+index e69de29..15c1d0d 100644
+--- a/file1.txt
++++ b/file1.txt
+@@ -0,0 +1 @@
++asvsghjsdkls
+
+a/file1.txt -----> source(stagging area)
+b/file1.txt ------> Destination(working directory)
+e69de29--------> Hash of the file content from source.
+15c1d0d--------> Hash of file content from destination.
+100644
+     100-----> Represent type of the filoe
+     644-----> file permissions
+--- a/file1.txt ------> source file missing some lines(stagging)
++++ b/file1.txt  ------> new line added in the destination(working directory)
+
+
+
+
+

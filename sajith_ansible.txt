@@ -1,0 +1,45 @@
+Ansible
+
+Ansible is is an open source automation tool.
+Ansible is configuration management tool and it will execute all taks on all servers parallelly.
+Ansible will be helpful to perform differengt kind of tasks (like Application deployment, task automation)
+
+
+
+lunch one instance ontop of we install ansible.
+
+where you install ansible that is called "Ansible engine/controller/master"
+ansible engine manages the servers that servers are called "ansible nodes/clients"
+
+Ansible contains the two files 
+1. inventory file ---> in inventory file we need to mention the Ip address of remote servers
+2. Ansible.config file----> It stores the all information about remote servers.
+
+
+Ansible engine uses the SSH connection to conncet and work with manage nodes
+we can create SSH connection in two ways:
+-----------
+1. Password authentication(it means provide remote user name and password)
+2. Password-less authentication (this is with generating SSH-Keys)
+#ssh-keygen
+
+Ansible is angent less architure why becuse we are not installing any software on our remote servers.
+no need to install ansible on remote servers
+
+so when ever you want to work with ansible for your environment you have Two steps:
+1. installing Ansible
+2. Configure your ansible 
+
+using "yum" command we install ansible
+#ansible all -m ping-----> this command is used to whether that clients are reached or not 
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,139 @@
+                                                   VPC_terraform
+
+main.tf
+terraform {
+  required_version = ">= 0.14.6"
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+    }
+  }
+}
+
+#provider block
+provider "aws" {
+  region  = "ap-south-1"
+  profile = "default"
+}
+
+vpc.tf
+
+resource "aws_vpc" "my-vpc" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    "name" = "vpc-1"
+  }
+}
+
+#create subnet
+resource "aws_subnet" "pub-sub" {
+  vpc_id                  = aws_vpc.my-vpc.id
+  cidr_block              = "10.0.0.0/24"
+  availability_zone       = "ap-south-1a"
+  map_public_ip_on_launch = true //ip with in the range of subnet
+}
+#create internet gateway
+resource "aws_internet_gateway" "igw-1" {
+  vpc_id = aws_vpc.my-vpc.id
+}
+#create Route table
+resource "aws_route_table" "pub-rt-1" {
+  vpc_id = aws_vpc.my-vpc.id
+}
+#create rout in route_table for internet access
+resource "aws_route" "route-1" {
+  route_table_id         = aws_route_table.pub-rt-1.id
+  destination_cidr_block = "0.0.0.0/0"                   #from entire internet access
+  gateway_id             = aws_internet_gateway.igw-1.id #from which igw you need to get this internet traffic
+}
+# association the route table with subnet
+resource "aws_route_table_association" "rt-ass" {
+  route_table_id = aws_route_table.pub-rt-1.id
+  subnet_id      = aws_subnet.pub-sub.id
+}
+
+
+sg.tf
+
+resource "aws_security_group" "sg-1" {
+  name        = "security group-1"
+  description = "my sg"
+  vpc_id      = aws_vpc.my-vpc.id
+  ingress {
+    description = "allow port 22"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "allow port 80"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "allow all"
+    from_port   = 0
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    description = "allow all ip"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+ec2.tf
+
+#create ec2 instance
+resource "aws_instance" "ec2-1" {
+  ami                    = "ami-01a4f99c4ac11b03c"
+  instance_type          = "t2.micro"
+  key_name               = "sajith"
+  subnet_id              = aws_subnet.pub-sub.id
+  vpc_security_group_ids = [aws_security_group.sg-1.id]
+  tags = {
+    "name" = "my-ec2"
+  }
+  user_data = <<-EOF
+    #!/bin/bash
+    sudo yum update -y
+    sudo yum install httpd -y
+    sudo systemctl enable httpd
+    sudo systemctl start httpd
+    EOF
+}
+
+#terraform init
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        08-02-2023     12:43                .terraform
+-a----        08-02-2023     12:43           1377 .terraform.lock.hcl
+
+#terrafrom validate
+Success! The configuration is valid
+
+#terraform plan
+aws_vpc.my-vpc: Refreshing state... [id=vpc-0cf77d33ebb9483da]
+aws_internet_gateway.igw-1: Refreshing state... [id=igw-0a00832374e6a1b77]
+aws_subnet.pub-sub: Refreshing state... [id=subnet-07bf3d3fe29c25c13]
+aws_route_table.pub-rt-1: Refreshing state... [id=rtb-06863d8c0d623268f]
+aws_security_group.sg-1: Refreshing state... [id=sg-058a967ab085b80cb]
+aws_route_table_association.rt-ass: Refreshing state... [id=rtbassoc-00155076080b1103a]
+aws_route.route-1: Refreshing state... [id=r-rtb-06863d8c0d623268f1080289494]
+aws_instance.ec2-1: Refreshing state... [id=i-095c23d955eb4904f]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration and found no differences,   
+so no changes are needed.
+
+#terraform apply --auto-approve
+-a----        08-02-2023     13:16          15024 terraform.tfstate
+-a----        08-02-2023     13:16          15022 terraform.tfstate.backup
